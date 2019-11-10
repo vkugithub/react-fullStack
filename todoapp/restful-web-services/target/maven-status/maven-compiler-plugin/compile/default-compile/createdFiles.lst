@@ -1,0 +1,5 @@
+com/react/todo/controller/ToDoController.class
+com/react/todo/service/ToDoService.class
+com/react/todo/ToDoApplication.class
+com/react/todo/configuration/SpringSecurityConfigurationBasicAuth.class
+com/react/todo/model/ToDo.class
