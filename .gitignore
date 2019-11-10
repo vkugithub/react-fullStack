@@ -8,8 +8,8 @@
 
 # User-specific stuff
 .idea/
-todoapp/frontend/node_modules/
-todoapp/frontend/build/
+todoapp/frontend/todo-app/node_modules/
+todoapp/frontend/todo-app/build/
 todoapp/restful-web-services/.idea/
 todoapp/restful-web-services/target
 # Gradle and Maven with auto-import
