@@ -25,7 +25,7 @@ import com.in28minutes.rest.webservices.restfulwebservices.jwt.JwtTokenUtil;
 import com.in28minutes.rest.webservices.restfulwebservices.jwt.JwtUserDetails;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin //(origins="http://localhost:4200")
 public class JwtAuthenticationRestController {
 
   @Value("${jwt.http.request.header}")
@@ -43,6 +43,9 @@ public class JwtAuthenticationRestController {
   @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
   public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
       throws AuthenticationException {
+
+//    System.out.println(" Credentials ");
+    System.out.println("Username : "+authenticationRequest.getUsername() +" password : " +authenticationRequest.getPassword());
 
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 

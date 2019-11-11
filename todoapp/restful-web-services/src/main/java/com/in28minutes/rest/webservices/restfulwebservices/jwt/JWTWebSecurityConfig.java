@@ -88,7 +88,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
             )
             .and()
             .ignoring()
-            .antMatchers("/h2-console/**/**");//Should not be in Production!
+            .antMatchers("/h2-console/**/**","/actuator","/actuator/*","/browser/index.html","/health","/metrics","/beans");//Should not be in Production!
     }
 }
 
