@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
-import FirstComponent from './components/learning-examples/FirstComponent'
-import SecondComponent from './components/learning-examples/SecondComponent'
-import ThirdComponent from './components/learning-examples/ThirdComponent'
-import Counter from './components/counter/Counter'
 import TodoApp from './components/todo/TodoApp'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as actions from './redux/actions'
+import {withRouter} from 'react-router'
 import './App.css';
-import './bootstrap.css';
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-         {/*<Counter/>*/}
-         <TodoApp/>
-      </div>
-    );
-  }
+function mapStateToProps(state) {
+  console.log(state)
+    return {
+        todos : state.todos,
+        comments: state.comments
+    }
 }
 
-class LearningComponents extends Component {
-  render() {
-    return (
-      <div className="LearningComponents">
-         My Hello World
-         <FirstComponent></FirstComponent>
-         <SecondComponent></SecondComponent>
-         <ThirdComponent></ThirdComponent>
-      </div>
-    );
-  }
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(actions, dispatch)
+
 }
 
-export default App;
+const App = withRouter(connect(mapStateToProps, mapDispatchToProps)(TodoApp))
+
+export default App
