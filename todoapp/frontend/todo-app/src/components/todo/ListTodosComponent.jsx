@@ -22,16 +22,16 @@ class ListTodosComponent extends Component {
         console.log('componentWillUnmount')
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate')
-        console.log(nextProps)
-        console.log(nextState)
-        return true
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('shouldComponentUpdate')
+    //     console.log(nextProps)
+    //     console.log(nextState)
+    //     return true
+    // }
 
     componentDidMount() {
         console.log('componentDidMount')
-        this.refreshTodos();
+        //this.refreshTodos();
         console.log(this.state)
     }
 
@@ -64,8 +64,7 @@ class ListTodosComponent extends Component {
     }
 
     updateTodoClicked(id) {
-        
-        // this.props.updatetodo(todo)
+        console.log('update ' + id)
         this.props.history.push(`/todo/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
@@ -81,7 +80,7 @@ class ListTodosComponent extends Component {
     }
 
     render() {
-        console.log('render')
+        console.log('render to ListTodosComponent')
         return (
             <div>
                  <h1>List Todos</h1>

@@ -8,7 +8,12 @@ class TodoComponent extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {}
+
+        this.state = {
+            id : this.props.match.params.id,
+            description : '',
+            targetDate : moment(new Date()).format('YYYY-MM-DD')
+        }
 
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
@@ -22,7 +27,7 @@ class TodoComponent extends Component {
         console.log(todos)
         let todo=todos.filter((todo)=>{
             console.log(todo.id)
-            return todo.id === 1
+            return todo.id === this.state.id
         })
         console.log('TodoComponent 2')
         console.log(todo)
@@ -75,7 +80,7 @@ class TodoComponent extends Component {
 
         console.log(values);
         this.props.updatetodo(todo)
-        this.props.history.push('/todos')
+        .then(()=> this.props.history.push('/todos'))
     }
 
     render() {

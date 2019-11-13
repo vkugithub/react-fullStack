@@ -24,7 +24,18 @@ function todos(state = _todos, action) {
         case 'REMOVE_TODO': return [...state.todos.slice(0, action.index), ...state.todos.slice(action.index + 1)]
         case 'ADD_TODO': return [...state, action.todo]
         case 'LOAD_TODO': return action.todos
-        case 'UPDATE_TODO' : return [...state, ...action.todo]
+        case 'UPDATE_TODO' :  return {
+            // ...state,
+            todos: state.todos.map(todo => {
+              if (todo.id === action.todo.id) {
+                return {
+                  ...todo,
+                  description: action.todo.description
+                };
+              }
+              return todo;
+            })
+          };
         //  (()=>{
         //     console.log('UPDATE_TODO')
         //     console.log(action.todo)

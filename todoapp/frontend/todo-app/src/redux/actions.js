@@ -22,8 +22,7 @@ export function updatetodo(todo) {
     let todos=[todo]
     console.log (todos)
     return {
-        type: 'REMOVE_TODO',
-        todo : todos,
-        index : 1
+        type: 'UPDATE_TODO',
+        todo : todos
     }
 }

@@ -4,6 +4,8 @@ import {bindActionCreators} from 'redux'
 import * as actions from './redux/actions'
 import {withRouter} from 'react-router'
 import './App.css';
+import './bootstrap.css';
+
 function mapStateToProps(state) {
   console.log(state)
     return {
