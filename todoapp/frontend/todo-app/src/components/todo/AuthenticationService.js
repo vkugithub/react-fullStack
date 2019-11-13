@@ -26,6 +26,7 @@ class AuthenticationService {
     }
 
     registerSuccessfulLoginForJwt(username,token) {
+        console.log('JWT Token '+token)
         sessionStorage.setItem('authenticatedUser', username)
         this.setupAxiosInterceptors(this.createJWTToken(token))
     }
