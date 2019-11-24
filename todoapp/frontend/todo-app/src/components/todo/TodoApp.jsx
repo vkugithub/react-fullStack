@@ -22,14 +22,14 @@ class TodoApp extends Component {
                             <Route path="/" exact component={LoginComponent}/>
                             <Route path="/login" component={LoginComponent}/>
                             <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
-                            <AuthenticatedRoute path="/todo/:id" component={TodoComponent}/>
-                            {/* <Route exact path="/todo/:id" render={(params)=>{
+                            {/* <AuthenticatedRoute path="/todo/:id" component={TodoComponent}/> */}
+                             <Route exact path="/todo/:id" render={(params)=>{
                                 if(AuthenticationService.isUserLoggedIn()) {
                                     return <TodoComponent  {...this.props} />
                                 } else {
                                     return <Redirect to="/login"/>
                                 } 
-                            }}></Route> */}
+                            }}></Route>
                             {/* <AuthenticatedRoute path="/todos"  component={ListTodosComponent}/> */}
                             <Route exact path="/todos" render={(params)=>{
                                 if(AuthenticationService.isUserLoggedIn()) {

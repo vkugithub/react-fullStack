@@ -10,6 +10,7 @@ class TodoComponent extends Component {
         super(props)
 
         this.state = {
+            todos : props.todos,
             id : this.props.match.params.id,
             description : '',
             targetDate : moment(new Date()).format('YYYY-MM-DD')
@@ -22,16 +23,16 @@ class TodoComponent extends Component {
 
     componentDidMount() {
 
-        let todos= this.props.todos
+        let todos= this.state.todos
         console.log('TodoComponent 1')
         console.log(todos)
-        let todo=todos.filter((todo)=>{
+        todos.filter((todo)=>{
             console.log(todo.id)
-            return todo.id === this.state.id
+            return todo.id === 1
         })
         console.log('TodoComponent 2')
-        console.log(todo)
-        this.setState(todo[0]) 
+        //console.log(todo)
+        this.setState(todos[0])
         if(this.state.id===-1) {
             return
         }
@@ -79,8 +80,9 @@ class TodoComponent extends Component {
         // }
 
         console.log(values);
-        this.props.updatetodo(todo)
-        .then(()=> this.props.history.push('/todos'))
+        //this.props.updatetodo(todo)
+        //.then(()=>
+        this.props.history.push('/todos')
     }
 
     render() {
