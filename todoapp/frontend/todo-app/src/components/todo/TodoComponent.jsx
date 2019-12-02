@@ -3,6 +3,7 @@ import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
+import { withRouter } from "react-router-dom";
 
 class TodoComponent extends Component {
 
@@ -26,24 +27,27 @@ class TodoComponent extends Component {
         let todos= this.state.todos
         console.log('TodoComponent 1')
         console.log(todos)
-        // todos.filter((todo)=>{
-        //     console.log(todo.id)
-        //     return todo.id === 1
-        // })
-        // console.log('TodoComponent 2')
-        ////console.log(todo)
-        // this.setState(todos[0])
-        if(this.state.id===-1) {
-            return
-        }
+        todos=todos.filter((todo)=>{
+            console.log(todo.id, parseInt(this.state.id))
+            return todo.id === parseInt(this.state.id)
+        })
+        console.log('TodoComponent 2',todos[0])
+        //console.log(todo)
+        this.setState({
+                    description: todos[0].description,
+                    targetDate: moment(todos[0].targetDate).format('YYYY-MM-DD')
+                 })
+        // if(this.state.id===-1) {
+        //     return
+        // }
 
-        let username = AuthenticationService.getLoggedInUserName()
+        // let username = AuthenticationService.getLoggedInUserName()
 
-        TodoDataService.retrieveTodo(username, this.state.id)
-             .then(response => this.setState({
-                description: response.data.description,
-                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
-             }))
+        // TodoDataService.retrieveTodo(username, this.state.id)
+        //      .then(response => this.setState({
+        //         description: response.data.description,
+        //         targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
+        //      }))
     }
 
     validate(values) {
@@ -79,10 +83,10 @@ class TodoComponent extends Component {
                 .then(() => this.props.history.push('/todos'))
         }
 
-        console.log(values);
-        //this.props.updatetodo(todo)
-        //.then(()=>
-        //this.props.history.push('/todos')
+        console.log(values, 'onSubmit', this.props.loadtodos );
+        this.props.updatetodo(todo)
+        .then(()=>
+        this.props.history.push('/todos'))
     }
 
     render() {
@@ -131,4 +135,4 @@ class TodoComponent extends Component {
     }
 }
 
-export default TodoComponent
+export default withRouter(TodoComponent)

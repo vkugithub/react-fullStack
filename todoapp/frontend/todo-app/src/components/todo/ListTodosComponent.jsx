@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 import moment from 'moment'
+// import history from '../../history.js';
+import { withRouter } from "react-router-dom";
 
 class ListTodosComponent extends Component {
 
@@ -10,7 +12,7 @@ class ListTodosComponent extends Component {
         super(props)
         console.log(props)
         this.state = {
-            todos : [], //props.todos,
+            todos :  props.todos,
             message : null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -32,7 +34,7 @@ class ListTodosComponent extends Component {
 
     componentDidMount() {
         console.log('componentDidMount')
-        this.refreshTodos();
+        // this.refreshTodos();
         console.log(this.state)
     }
 
@@ -69,6 +71,7 @@ class ListTodosComponent extends Component {
         console.log('updateTodoClicked ', id , this.props.component)
 
         this.props.history.push(`/todo/${id}`)
+        
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()
         // //console.log(id + " " + username);
@@ -123,4 +126,4 @@ class ListTodosComponent extends Component {
     }
 }
 
-export default ListTodosComponent
+export default withRouter(ListTodosComponent)

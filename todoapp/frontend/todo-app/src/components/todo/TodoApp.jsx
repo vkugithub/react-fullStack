@@ -10,6 +10,7 @@ import FooterComponent from './FooterComponent.jsx'
 import LogoutComponent from './LogoutComponent.jsx'
 import WelcomeComponent from './WelcomeComponent.jsx'
 import TodoComponent from './TodoComponent.jsx'
+import history from '../../history.js';
 
 class TodoApp extends Component {
 
@@ -31,15 +32,15 @@ class TodoApp extends Component {
     render() {
         return (
             <div className="TodoApp">
-                <Router>
+                <Router history={history}>
                     <>
                         <HeaderComponent/>
                         <Switch>
                             <Route path="/" exact component={LoginComponent}/>
                             <Route path="/login" component={LoginComponent}/>
                             <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
-                            <AuthenticatedRoute exact path="/todos"  component={ListTodosComponent} {...this.props} />
-                             <AuthenticatedRoute exact path="/todo/:id" todos={this.props.todos}  component={TodoComponent} />
+                            <AuthenticatedRoute exact path="/todos"  component={ListTodosComponent}  {...this.props} />
+                             <AuthenticatedRoute exact path="/todo/:id"  component={TodoComponent} {...this.props}/>
                              {/*<Route exact path="/todo/:id" render={(params)=>{
                                 if(AuthenticationService.isUserLoggedIn()) {
                                     return <TodoComponent  {...this.props} />

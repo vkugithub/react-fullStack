@@ -29,7 +29,8 @@ function todos(state = _todos, action) {
             todos: state.todos.map(todo => {
               if (todo.id === action.todo.id) {
                 return {
-                  ...todo,
+                  // ...todo,
+                  id: action.todo.id,
                   description: action.todo.description
                 };
               }
