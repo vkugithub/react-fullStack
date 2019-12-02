@@ -23,6 +23,7 @@ export function updatetodo(todo) {
     console.log (todos)
     return {
         type: 'UPDATE_TODO',
-        todo : todos
+        index : todo.id,
+        todos
     }
 }

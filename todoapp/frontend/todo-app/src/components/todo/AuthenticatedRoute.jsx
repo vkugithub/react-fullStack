@@ -42,6 +42,7 @@ class AuthenticatedRoute extends Component {
     render() {
         if(AuthenticationService.isUserLoggedIn()) {
             console.log('AuthenticatedRoute', this.props)
+            
             return <PropsRoute {...this.props}  />
             // const finalProps = Object.assign({}, ...this.props);
             // return React.createElement(this.props.component, finalProps )

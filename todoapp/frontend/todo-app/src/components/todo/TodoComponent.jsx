@@ -4,6 +4,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 import { withRouter } from "react-router-dom";
+import {updatetodo} from '../../redux/actions';
+
+
+const processDataAsycn = async (todo) => {  
+    this.props.updatetodo(todo)
+    return true;  
+  }; 
 
 class TodoComponent extends Component {
 
@@ -21,6 +28,8 @@ class TodoComponent extends Component {
         this.validate = this.validate.bind(this)
 
     }
+
+
 
     componentDidMount() {
 
@@ -65,29 +74,44 @@ class TodoComponent extends Component {
         return errors
 
     }
+    
 
     onSubmit(values) {
         let username = AuthenticationService.getLoggedInUserName()
 
-        let todo = {
-            id: this.state.id,
-            description: values.description,
-            targetDate: values.targetDate
-        }
+        // let todo = {
+        //     id: this.state.id,
+        //     description: values.description,
+        //     targetDate: values.targetDate
+        // }
 
-        if (this.state.id === -1) {
-            TodoDataService.createTodo(username, todo)
-                .then(() => this.props.history.push('/todos'))
-        } else {
-            TodoDataService.updateTodo(username, this.state.id, todo)
-                .then(() => this.props.history.push('/todos'))
-        }
+        let todo = {id: 1, description : 'Learn to Dance by redux 3', done:false, targetDate: new Date()}
+
+
+        // if (this.state.id === -1) {
+        //     TodoDataService.createTodo(username, todo)
+        //         .then(() => this.props.history.push('/todos'))
+        // } else {
+        //     TodoDataService.updateTodo(username, this.state.id, todo)
+        //         .then(() => this.props.history.push('/todos'))
+        // }
+        
+        // this.props.dispatch(addPicture(Number(new Date()),imageLink,description))
+        // this.props.startAddingPost(post)
 
         console.log(values, 'onSubmit', this.props.loadtodos );
+        // this.props.dispatch(updatetodo(todo))
         this.props.updatetodo(todo)
-        .then(()=>
-        this.props.history.push('/todos'))
+
+        processDataAsycn(todo).then(() => {  
+            this.props.history.push('/todos')
+          }).catch((error) => {  
+            this.props.history.push('/todos')
+          });
     }
+
+   
+     
 
     render() {
         

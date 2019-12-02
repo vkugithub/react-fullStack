@@ -18,6 +18,8 @@ class TodoApp extends Component {
         super(props)
         console.log('ToDoApp');
         console.log(props)
+
+        // props.loadtodos(props.todos);
     }
     componentDidMount() {
         console.log('ToDoApp');

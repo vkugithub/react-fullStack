@@ -1,4 +1,5 @@
 import _todos from '../data/todosdata'
+import _testtodos from '../data/testdata'
 // import {combineReducers} from 'redux'
 
 // function comments(state={}, action) {
@@ -22,20 +23,30 @@ import _todos from '../data/todosdata'
 function todos(state = _todos, action) {
     switch (action.type) {
         case 'REMOVE_TODO': return [...state.todos.slice(0, action.index), ...state.todos.slice(action.index + 1)]
-        case 'ADD_TODO': return [...state, action.todo]
+        case 'ADD_TODO':  {
+          console.log( 'ADD_TODO' )
+          return [...state, action.todo]
+        }
         case 'LOAD_TODO': return action.todos
-        case 'UPDATE_TODO' :  return {
-            // ...state,
-            todos: state.todos.map(todo => {
-              if (todo.id === action.todo.id) {
-                return {
-                  // ...todo,
-                  id: action.todo.id,
-                  description: action.todo.description
-                };
-              }
-              return todo;
+        case 'UPDATE_TODO' :  //return   //_testtodos
+        {
+          const todos2=state.todos.filter((todo)=>{
+            return !(todo.id === parseInt(action.index))
             })
+            const todos3 = [...todos2, ...action.todos]
+            console.log('UPDATE_TODO action' , todos3)
+            const testtodos = {todos:todos3}
+          //  const todos= state.todos.map(todo => {
+          //     if (todo.id === action.todo.id) {
+          //       return {
+          //         // ...todo,
+          //         id: action.todo.id,
+          //         description: action.todo.description
+          //       };
+          //     }
+          //     return todo;
+          //   })
+            return testtodos;
           };
         //  (()=>{
         //     console.log('UPDATE_TODO')
