@@ -8,8 +8,9 @@ class ListTodosComponent extends Component {
     constructor(props){
         console.log('constructor')
         super(props)
+        console.log(props)
         this.state = {
-            todos : props.todos,
+            todos : [], //props.todos,
             message : null
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this)
@@ -22,25 +23,26 @@ class ListTodosComponent extends Component {
         console.log('componentWillUnmount')
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log('shouldComponentUpdate')
-    //     console.log(nextProps)
-    //     console.log(nextState)
-    //     return true
-    // }
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('shouldComponentUpdate')
+        console.log(nextProps)
+        console.log(nextState)
+        return true
+    }
 
     componentDidMount() {
         console.log('componentDidMount')
-        //this.refreshTodos();
+        this.refreshTodos();
         console.log(this.state)
     }
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
+        console.log('username ',username)
         TodoDataService.retrieveAllTodos(username)
           .then(
               response => {
-                  //console.log(response);
+                  console.log('refreshTodos',response);
                   this.setState({todos : response.data})
               }
           )
@@ -60,11 +62,12 @@ class ListTodosComponent extends Component {
     }
 
     addTodoClicked() {
-        this.props.history.push(`/todos/-1`)
+        this.props.history.push(`/todo/-1`)
     }
 
     updateTodoClicked(id) {
-        console.log('update ' + id)
+        console.log('updateTodoClicked ', id , this.props.component)
+
         this.props.history.push(`/todo/${id}`)
         // /todos/${id}
         // let username = AuthenticationService.getLoggedInUserName()

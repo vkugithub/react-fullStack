@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import moment from 'moment'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-// import TodoDataService from '../../api/todo/TodoDataService.js'
+import TodoDataService from '../../api/todo/TodoDataService.js'
 import AuthenticationService from './AuthenticationService.js'
 
 class TodoComponent extends Component {
@@ -26,24 +26,24 @@ class TodoComponent extends Component {
         let todos= this.state.todos
         console.log('TodoComponent 1')
         console.log(todos)
-        todos.filter((todo)=>{
-            console.log(todo.id)
-            return todo.id === 1
-        })
-        console.log('TodoComponent 2')
-        //console.log(todo)
-        this.setState(todos[0])
+        // todos.filter((todo)=>{
+        //     console.log(todo.id)
+        //     return todo.id === 1
+        // })
+        // console.log('TodoComponent 2')
+        ////console.log(todo)
+        // this.setState(todos[0])
         if(this.state.id===-1) {
             return
         }
 
-        // let username = AuthenticationService.getLoggedInUserName()
+        let username = AuthenticationService.getLoggedInUserName()
 
-        // TodoDataService.retrieveTodo(username, this.state.id)
-        //      .then(response => this.setState({
-        //         description: response.data.description,
-        //         targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
-        //      }))
+        TodoDataService.retrieveTodo(username, this.state.id)
+             .then(response => this.setState({
+                description: response.data.description,
+                targetDate: moment(response.data.targetDate).format('YYYY-MM-DD')
+             }))
     }
 
     validate(values) {
@@ -63,7 +63,7 @@ class TodoComponent extends Component {
     }
 
     onSubmit(values) {
-        // let username = AuthenticationService.getLoggedInUserName()
+        let username = AuthenticationService.getLoggedInUserName()
 
         let todo = {
             id: this.state.id,
@@ -71,18 +71,18 @@ class TodoComponent extends Component {
             targetDate: values.targetDate
         }
 
-        // if (this.state.id === -1) {
-        //     TodoDataService.createTodo(username, todo)
-        //         .then(() => this.props.history.push('/todos'))
-        // } else {
-        //     TodoDataService.updateTodo(username, this.state.id, todo)
-        //         .then(() => this.props.history.push('/todos'))
-        // }
+        if (this.state.id === -1) {
+            TodoDataService.createTodo(username, todo)
+                .then(() => this.props.history.push('/todos'))
+        } else {
+            TodoDataService.updateTodo(username, this.state.id, todo)
+                .then(() => this.props.history.push('/todos'))
+        }
 
         console.log(values);
         //this.props.updatetodo(todo)
         //.then(()=>
-        this.props.history.push('/todos')
+        //this.props.history.push('/todos')
     }
 
     render() {

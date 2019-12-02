@@ -12,6 +12,22 @@ import WelcomeComponent from './WelcomeComponent.jsx'
 import TodoComponent from './TodoComponent.jsx'
 
 class TodoApp extends Component {
+
+    constructor(props) {
+        super(props)
+        console.log('ToDoApp');
+        console.log(props)
+    }
+    componentDidMount() {
+        console.log('ToDoApp');
+        console.log(this.props)
+    }
+
+    componentWillUnmount() {
+        console.log('ToDoApp');
+        console.log(this.props)
+    }
+
     render() {
         return (
             <div className="TodoApp">
@@ -22,22 +38,23 @@ class TodoApp extends Component {
                             <Route path="/" exact component={LoginComponent}/>
                             <Route path="/login" component={LoginComponent}/>
                             <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
-                            {/* <AuthenticatedRoute path="/todo/:id" component={TodoComponent}/> */}
-                             <Route exact path="/todo/:id" render={(params)=>{
+                            <AuthenticatedRoute exact path="/todos"  component={ListTodosComponent} {...this.props} />
+                             <AuthenticatedRoute exact path="/todo/:id" todos={this.props.todos}  component={TodoComponent} />
+                             {/*<Route exact path="/todo/:id" render={(params)=>{
                                 if(AuthenticationService.isUserLoggedIn()) {
                                     return <TodoComponent  {...this.props} />
                                 } else {
                                     return <Redirect to="/login"/>
                                 } 
-                            }}></Route>
-                            {/* <AuthenticatedRoute path="/todos"  component={ListTodosComponent}/> */}
-                            <Route exact path="/todos" render={(params)=>{
+                            }}></Route>*/}
+                            
+                            {/* <Route exact path="/todos" render={(params)=>{
                                 if(AuthenticationService.isUserLoggedIn()) {
                                     return <ListTodosComponent  {...this.props} />
                                 } else {
                                     return <Redirect to="/login"/>
                                 } 
-                            }}></Route>
+                            }}></Route> */}
                             <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
                             <Route component={ErrorComponent}/>
                         </Switch>
