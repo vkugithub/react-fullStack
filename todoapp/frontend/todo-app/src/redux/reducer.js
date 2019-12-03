@@ -1,6 +1,6 @@
 import _todos from '../data/todosdata'
 import _testtodos from '../data/testdata'
-import {updateToDos} from './todoActions.js'
+import todoActions from './todoActions.js'
 // import {combineReducers} from 'redux'
 
 // function comments(state={}, action) {
@@ -28,8 +28,8 @@ function todos(state = _todos, action) {
           console.log( 'ADD_TODO' )
           return [...state, action.todo]
         }
-        case 'LOAD_TODO': return action.todos
-        case 'UPDATE_TODO' : {return updateToDos(state , action)} //_testtodos
+        case 'LOAD_TODO': {return todoActions.loadToDos()}  
+        case 'UPDATE_TODO' : {return todoActions.updateToDos(state , action)} //_testtodos
         // {
         //   const todos2=state.todos.filter((todo)=>{
         //     return !(todo.id === parseInt(action.index))

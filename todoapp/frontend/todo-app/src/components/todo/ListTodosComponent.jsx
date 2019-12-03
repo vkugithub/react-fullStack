@@ -5,10 +5,15 @@ import moment from 'moment'
 // import history from '../../history.js';
 import { withRouter } from "react-router-dom";
 
+const loadDataAsycn = async (props) => {  
+    props.loadtodos()
+    return true;  
+  }; 
+
 class ListTodosComponent extends Component {
 
     constructor(props){
-        console.log('constructor')
+        console.log('ListToDosComponent constructor')
         super(props)
         console.log(props)
         this.state = {
@@ -33,8 +38,13 @@ class ListTodosComponent extends Component {
     }
 
     componentDidMount() {
-        console.log('componentDidMount')
+        console.log('ListToDosComponent componentDidMount')
         // this.refreshTodos();
+        loadDataAsycn(this.props).then(() => {  
+            this.props.history.push('/todos')
+          }).catch((error) => {  
+            console.log('error ',error)
+          });
         console.log(this.state)
     }
 
