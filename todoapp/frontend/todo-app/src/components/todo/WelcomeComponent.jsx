@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,withRouter} from 'react-router-dom'
 import HelloWorldService from '../../api/todo/HelloWorldService.js'
+
 
 class WelcomeComponent extends Component {
 
@@ -69,4 +70,4 @@ class WelcomeComponent extends Component {
 }
 
 
-export default WelcomeComponent
+export default withRouter(WelcomeComponent)

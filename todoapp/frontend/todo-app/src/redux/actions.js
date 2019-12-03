@@ -1,8 +1,17 @@
-export function loadtodos() {
+export function loadtodos(todos) {
     return {
-        type: 'LOAD_TODO'
+        type: 'LOAD_TODO',
+        todos
     }
 }
+
+export function todosLoaded(todos) {
+    return {
+        type: 'TODOS_LOADED',
+        todos
+    }
+}
+
 export function addtodo(todo) {
     return {
         type: 'ADD_TODO',

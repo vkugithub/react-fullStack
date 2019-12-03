@@ -12,7 +12,7 @@ const renderMergedProps = (component, ...rest) => {
   const PropsRoute = ({ component, ...rest }) => {
     return (
       <Route {...rest} render={routeProps => {
-          console.log('PropsRoute ', {...rest} );
+          console.log('PropsRoute ',component, {...rest} );
         return renderMergedProps(component, routeProps, rest);
       }}/>
     );

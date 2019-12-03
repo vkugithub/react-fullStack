@@ -38,9 +38,15 @@ class TodoApp extends Component {
                     <>
                         <HeaderComponent/>
                         <Switch>
-                            <Route path="/" exact component={LoginComponent}/>
-                            <Route path="/login" component={LoginComponent}/>
-                            <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
+                            {/* <Route path="/" exact component={LoginComponent} {...this.props}/> */}
+                            {/* <AuthenticatedRoute path="/login" component={LoginComponent} {...this.props}/> */}
+                            <Route exact path="/" render={(params)=>{
+                                    return <LoginComponent  {...this.props} />
+                            }}></Route>
+                            <Route exact path="/login" render={(params)=>{
+                                    return <LoginComponent  {...this.props} />
+                            }}></Route>
+                            <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} {...this.props}/>
                             <AuthenticatedRoute exact path="/todos"  component={ListTodosComponent}  {...this.props} />
                              <AuthenticatedRoute exact path="/todo/:id"  component={TodoComponent} {...this.props}/>
                              {/*<Route exact path="/todo/:id" render={(params)=>{

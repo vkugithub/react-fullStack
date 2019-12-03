@@ -2,6 +2,11 @@ import axios from 'axios'
 
 class AuthenticationService {
 
+    async retrieveAllTodos() {
+        console.log(' retrieveAllTodos service executed')
+        return await axios.get('http://localhost:8080/users/vik/todos');
+    }
+
     executeBasicAuthenticationService(username, password) {
         return axios.get('http://localhost:8080/basicauth',
             {headers: {authorization: this.createBasicAuthToken(username,password)}})

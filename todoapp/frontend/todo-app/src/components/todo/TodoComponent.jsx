@@ -41,14 +41,14 @@ class TodoComponent extends Component {
             return parseInt(todo.id) === parseInt(this.state.id)
         })
         console.log('TodoComponent 2',todos)
-        //console.log(todo)
+        if(parseInt(this.state.id)===-1) {
+            return
+        }
         this.setState({
                     description: todos[0].description,
                     targetDate: moment(todos[0].targetDate).format('YYYY-MM-DD')
                  })
-        // if(this.state.id===-1) {
-        //     return
-        // }
+        
 
         // let username = AuthenticationService.getLoggedInUserName()
 
@@ -81,6 +81,7 @@ class TodoComponent extends Component {
 
         let todo = {
             id: this.state.id,
+            username : 'in28minutes',
             description: values.description,
             targetDate: values.targetDate,
             done : false
@@ -89,13 +90,26 @@ class TodoComponent extends Component {
         // let todo = {id: 1, description : 'Learn to Dance by redux 3', done:false, targetDate: new Date()}
 
 
-        // if (this.state.id === -1) {
-        //     TodoDataService.createTodo(username, todo)
-        //         .then(() => this.props.history.push('/todos'))
-        // } else {
-        //     TodoDataService.updateTodo(username, this.state.id, todo)
-        //         .then(() => this.props.history.push('/todos'))
-        // }
+        if (this.state.id === -1) {
+            TodoDataService.createTodo(username, todo)
+                .then(() => {
+                    this.props.addtodo(todo)
+                    this.props.history.push('/todos')
+                })
+        } else {
+            TodoDataService.updateTodo(username, this.state.id, todo)
+                .then(() =>{
+                    console.log(' Update todo ',todo)
+                    processDataAsycn(this.props,todo).then(() => {  
+                        this.props.history.push('/todos')
+                    }).catch((error) => {  
+                        console.log('error ',error)
+                    });
+                    }
+                ).catch((error) => {  
+                    console.log('error ',error)
+                });
+        }
         
         // this.props.dispatch(addPicture(Number(new Date()),imageLink,description))
         // this.props.startAddingPost(post)
@@ -103,12 +117,7 @@ class TodoComponent extends Component {
         // console.log(values, 'onSubmit', this.props.loadtodos );
         // this.props.dispatch(updatetodo(todo))
         // this.props.updatetodo(todo)
-        console.log(' Update todo ',todo)
-        processDataAsycn(this.props,todo).then(() => {  
-            this.props.history.push('/todos')
-          }).catch((error) => {  
-            console.log('error ',error)
-          });
+        
     }
 
    

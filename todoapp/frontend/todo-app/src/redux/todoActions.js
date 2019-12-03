@@ -1,6 +1,6 @@
 // import TodoDataService from '../api/todo/TodoDataService.js'
 import AuthenticationService from '../components/todo/AuthenticationService.js'
-import axios from 'axios'
+// import axios from 'axios'
 
 const todoActions = {
     updateToDos: function(state , action1){
@@ -20,7 +20,8 @@ const todoActions = {
         console.log('loadToDos')
         let username = AuthenticationService.getLoggedInUserName()
         console.log('username ',username)
-        axios.get(`http://localhost:8080/users/vik/todos`)
+        // axios.get(`http://localhost:8080/users/vik/todos`)
+        AuthenticationService.retrieveAllTodos()
           .then(
               response => {
                   console.log('refreshTodos',response);

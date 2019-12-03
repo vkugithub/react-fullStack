@@ -5,8 +5,9 @@ import moment from 'moment'
 // import history from '../../history.js';
 import { withRouter } from "react-router-dom";
 
-const loadDataAsycn = async (props) => {  
-    props.loadtodos()
+const loadDataAsycn = async (props,todos) => {  
+    console.log('loadDataAsycn')
+    props.loadtodos(todos)
     return true;  
   }; 
 
@@ -39,25 +40,40 @@ class ListTodosComponent extends Component {
 
     componentDidMount() {
         console.log('ListToDosComponent componentDidMount')
-        // this.refreshTodos();
-        loadDataAsycn(this.props).then(() => {  
-            this.props.history.push('/todos')
-          }).catch((error) => {  
-            console.log('error ',error)
-          });
-        console.log(this.state)
+        //this.refreshTodos();
+        // loadDataAsycn(this.props).then(() => {  
+        //     console.log(' good ')
+        //      this.props.history.push('/todos')
+        //   }).catch((error) => {  
+        //     console.log('error ',error)
+        //   });
+        // console.log(this.state)
     }
+    
 
     refreshTodos() {
         let username = AuthenticationService.getLoggedInUserName()
         console.log('username ',username)
-        TodoDataService.retrieveAllTodos(username)
+        AuthenticationService.retrieveAllTodos()
           .then(
               response => {
                   console.log('refreshTodos',response);
                   this.setState({todos : response.data})
+                // this.props.loadtodos({todos : response.data})
+                // this.props.history.push('/todos')
+
+                loadDataAsycn(this.props,{todos : response.data}).then(() => {  
+                    console.log(' good ')
+                     this.props.history.push('/todos')
+                }).catch((error) => {  
+                    console.log('error ',error)
+                });
+                // return {todos : response.data}
               }
-          )
+          ).catch((error)=>{
+            console.log(error);
+            return {todos : []}
+          })
     }
 
     deleteTodoClicked(id) {

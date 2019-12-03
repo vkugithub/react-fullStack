@@ -1,6 +1,8 @@
 import _todos from '../data/todosdata'
 import _testtodos from '../data/testdata'
 import todoActions from './todoActions.js'
+// import axios from 'axios'
+import AuthenticationService from '../components/todo/AuthenticationService.js'
 // import {combineReducers} from 'redux'
 
 // function comments(state={}, action) {
@@ -28,7 +30,29 @@ function todos(state = _todos, action) {
           console.log( 'ADD_TODO' )
           return [...state, action.todo]
         }
-        case 'LOAD_TODO': {return todoActions.loadToDos()}  
+        case 'LOAD_TODO': {console.log('Load ToDo reducer ', action.todos) 
+                    return action.todos}
+      //   {
+      //     console.log('LOAD_TODO ')
+      //     // let username = AuthenticationService.getLoggedInUserName()
+      //     // console.log('username ',username)
+
+      //   AuthenticationService.retrieveAllTodos()
+      //   .then((response) => {
+      //     console.log(' retrieveAllTodos response ', response.data);
+      //     let res = {todos: response.data}
+      //     res=state;
+      //     console.log('res', res)
+      //     return res
+      //   }).catch( (error) =>{
+      //      console.log(error);
+      //      return {todos : []} 
+      //   })
+      //   return state
+          
+      // }
+        
+        //{return todoActions.loadToDos()}  
         case 'UPDATE_TODO' : {return todoActions.updateToDos(state , action)} //_testtodos
         // {
         //   const todos2=state.todos.filter((todo)=>{
@@ -63,6 +87,9 @@ function todos(state = _todos, action) {
         //         return [...state, action.todo]
         //     }
         // ) 
+        case 'GET_TODO_DATA_RECEIVED': {
+          console.log('GET_TODO_DATA_RECEIVED',action.data)
+          return action.data}
         default: return state
 
     }

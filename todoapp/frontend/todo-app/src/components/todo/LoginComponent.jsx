@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import AuthenticationService from './AuthenticationService.js'
+import { withRouter } from "react-router-dom";
 
 class LoginComponent extends Component {
 
     constructor(props) {
         super(props)
-
+        console.log('Login constructor', props)
         this.state = {
             username: 'in28minutes',
             password: '',
@@ -65,11 +66,22 @@ class LoginComponent extends Component {
         //     this.setState({showSuccessMessage:false})
         //     this.setState({hasLoginFailed:true})
         // })
-
+        console.log('Props ',this.props);
         AuthenticationService
         .executeJwtAuthenticationService(this.state.username, this.state.password)
         .then((response) => {
             AuthenticationService.registerSuccessfulLoginForJwt(this.state.username,response.data.token)
+
+            AuthenticationService.retrieveAllTodos()
+          .then(
+              response => {
+                  console.log(' Login and retrieveAllTodos',{todos : response.data})
+                this.props.loadtodos({todos : response.data})
+                this.props.history.push(`/welcome/${this.state.username}`)
+                }).catch((error) => {  
+                    console.log('Login and retrieveAllTodos error ',error)
+                });
+
             this.props.history.push(`/welcome/${this.state.username}`)
         }).catch( () =>{
             this.setState({showSuccessMessage:false})
@@ -96,4 +108,4 @@ class LoginComponent extends Component {
     }
 }
 
-export default LoginComponent
+export default withRouter(LoginComponent)
