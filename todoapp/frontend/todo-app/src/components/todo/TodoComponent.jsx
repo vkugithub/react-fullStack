@@ -97,14 +97,19 @@ class TodoComponent extends Component {
                     this.props.history.push('/todos')
                 })
         } else {
+            console.log('Update todo',todo)
             TodoDataService.updateTodo(username, this.state.id, todo)
                 .then(() =>{
-                    console.log(' Update todo ',todo)
-                    processDataAsycn(this.props,todo).then(() => {  
-                        this.props.history.push('/todos')
-                    }).catch((error) => {  
-                        console.log('error ',error)
-                    });
+
+                    AuthenticationService.retrieveAllTodos()
+                    .then(response => {
+                            console.log(' After update and retrieveAllTodos',{todos : response.data})
+                          this.props.loadtodos({todos : response.data})
+                          this.props.history.push('/todos')
+                          }).catch((error) => {  
+                              console.log('After update and retrieveAllTodos error ',error)
+                          });
+
                     }
                 ).catch((error) => {  
                     console.log('error ',error)

@@ -2,9 +2,16 @@ import axios from 'axios'
 
 class AuthenticationService {
 
-    async retrieveAllTodos() {
-        console.log(' retrieveAllTodos service executed')
-        return await axios.get('http://localhost:8080/users/vik/todos');
+    async retrieveAllTodos(token) {
+        console.log(' retrieveAllTodos service executed', token)
+        const AuthStr = 'Bearer '.concat(token);
+        return await axios.get('http://localhost:3001/todos',{ headers: { 'Authorization' : 'Bearer'} }
+        // ,{
+        //     headers: {
+        //       'Authorization': 'Bearer '
+        //     }
+        //    }
+           );
     }
 
     executeBasicAuthenticationService(username, password) {
@@ -13,6 +20,7 @@ class AuthenticationService {
     }
 
     executeJwtAuthenticationService(username, password) {
+        console.log('executeJwtAuthenticationService', username, password)
         return axios.post('http://localhost:8080/authenticate', {
             username,
             password
@@ -32,7 +40,7 @@ class AuthenticationService {
 
     registerSuccessfulLoginForJwt(username,token) {
         sessionStorage.setItem('authenticatedUser', username)
-        this.setupAxiosInterceptors(this.createJWTToken(token))
+        //this.setupAxiosInterceptors(this.createJWTToken(token))
     }
 
     createJWTToken(token) {

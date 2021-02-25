@@ -45,34 +45,13 @@ class LoginComponent extends Component {
     // }
 
     loginClicked() {
-        //in28minutes,dummy
-        // if(this.state.username==='in28minutes' && this.state.password==='dummy'){
-        //     AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
-        //     this.props.history.push(`/welcome/${this.state.username}`)
-        //     //this.setState({showSuccessMessage:true})
-        //     //this.setState({hasLoginFailed:false})
-        // }
-        // else {
-        //     this.setState({showSuccessMessage:false})
-        //     this.setState({hasLoginFailed:true})
-        // }
-
-        // AuthenticationService
-        // .executeBasicAuthenticationService(this.state.username, this.state.password)
-        // .then(() => {
-        //     AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
-        //     this.props.history.push(`/welcome/${this.state.username}`)
-        // }).catch( () =>{
-        //     this.setState({showSuccessMessage:false})
-        //     this.setState({hasLoginFailed:true})
-        // })
         console.log('Props ',this.props);
         AuthenticationService
-        .executeJwtAuthenticationService(this.state.username, this.state.password)
+        .executeBasicAuthenticationService(this.state.username, this.state.password)
         .then((response) => {
             AuthenticationService.registerSuccessfulLoginForJwt(this.state.username,response.data.token)
 
-            AuthenticationService.retrieveAllTodos()
+            AuthenticationService.retrieveAllTodos(response.data.token)
           .then(
               response => {
                   console.log(' Login and retrieveAllTodos',{todos : response.data})
@@ -82,7 +61,7 @@ class LoginComponent extends Component {
                     console.log('Login and retrieveAllTodos error ',error)
                 });
 
-            this.props.history.push(`/welcome/${this.state.username}`)
+            //this.props.history.push(`/welcome/${this.state.username}`)
         }).catch( () =>{
             this.setState({showSuccessMessage:false})
             this.setState({hasLoginFailed:true})

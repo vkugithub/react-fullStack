@@ -3,27 +3,27 @@ import axios from 'axios'
 class TodoDataService {
      retrieveAllTodos() {
         console.log('executed service')
-        return axios.get(`http://localhost:8080/users/vik/todos`);
+        return axios.get('http://localhost:3001/');
     }
 
     retrieveTodo(name, id) {
         //console.log('executed service')
-        return axios.get(`http://localhost:8080/users/${name}/todos/${id}`);
+        return axios.get(`http://localhost:3001/todos`);
     }
 
     deleteTodo(name, id) {
         //console.log('executed service')
-        return axios.delete(`http://localhost:8080/users/${name}/todos/${id}`);
+        return axios.delete('http://localhost:3001/delete');
     }
 
     updateTodo(name, id, todo) {
         //console.log('executed service')
-        return axios.put(`http://localhost:8080/users/${name}/todos/${id}`, todo);
+        return axios.post('http://localhost:3001/update', todo);
     }
 
     createTodo(name, todo) {
         //console.log('executed service')
-        return axios.post(`http://localhost:8080/users/${name}/todos/`, todo);
+        return axios.post('http://localhost:3001/create', todo);
     }
 
 }

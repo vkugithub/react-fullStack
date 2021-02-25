@@ -48,7 +48,7 @@ class TodoApp extends Component {
                             }}></Route>
                             <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} {...this.props}/>
                             <AuthenticatedRoute exact path="/todos"  component={ListTodosComponent}  {...this.props} />
-                             <AuthenticatedRoute exact path="/todo/:id"  component={TodoComponent} {...this.props}/>
+                            <AuthenticatedRoute exact path="/todo/:id"  component={TodoComponent} {...this.props}/>
                              {/*<Route exact path="/todo/:id" render={(params)=>{
                                 if(AuthenticationService.isUserLoggedIn()) {
                                     return <TodoComponent  {...this.props} />
