@@ -5,7 +5,7 @@ class AuthenticationService {
     async retrieveAllTodos(token) {
         console.log(' retrieveAllTodos service executed', token)
         const AuthStr = 'Bearer '.concat(token);
-        return await axios.get('http://localhost:3001/todos',{ headers: { 'Authorization' : 'Bearer'} }
+        return await axios.get('http://localhost:8080/users/vvv/todos',
         // ,{
         //     headers: {
         //       'Authorization': 'Bearer '
@@ -15,8 +15,10 @@ class AuthenticationService {
     }
 
     executeBasicAuthenticationService(username, password) {
-        return axios.get('http://localhost:8080/basicauth',
-            {headers: {authorization: this.createBasicAuthToken(username,password)}})
+console.log('http://localhost:8080/authenticate')
+        return axios.post('http://localhost:8080/authenticate'
+        // ,{headers: {authorization: this.createBasicAuthToken(username,password)}}
+            )
     }
 
     executeJwtAuthenticationService(username, password) {
@@ -40,7 +42,7 @@ class AuthenticationService {
 
     registerSuccessfulLoginForJwt(username,token) {
         sessionStorage.setItem('authenticatedUser', username)
-        //this.setupAxiosInterceptors(this.createJWTToken(token))
+        this.setupAxiosInterceptors(this.createJWTToken(token))
     }
 
     createJWTToken(token) {

@@ -8,8 +8,9 @@ import {Provider} from 'react-redux'
 import App from './App'
 import thunk from 'redux-thunk'
 import dataService from './redux/dataService'
+import logger from './redux/logger'
 
-const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk,dataService))
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk,logger,dataService))
 store.dispatch({ type: 'GET_TODO_DATA' })
 
 ReactDOM.render(<Provider store={store}><BrowserRouter><App/></BrowserRouter></Provider>, document.getElementById('root'))
